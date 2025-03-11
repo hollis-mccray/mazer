@@ -26,6 +26,8 @@ class Window():
         self.__running = False
 
     def draw_line(self, line, fill_color):
+        if self._win is None:
+            return
         line.draw(self.__canvas, fill_color)
 
 class Point():
@@ -48,7 +50,7 @@ class Line():
         )
 
 class Cell():
-    def __init__(self, win):
+    def __init__(self, win=None):
         self.has_left_wall = True
         self.has_right_wall = True
         self.has_top_wall = True
@@ -64,6 +66,8 @@ class Cell():
         self._x2 = x2
         self._y1 = y1
         self._y2 = y2
+        if self._win is None:
+            return
         if self.has_left_wall:
             line =  l = Line(
                 Point(self._x1, self._y1),
