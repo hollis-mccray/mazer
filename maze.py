@@ -36,6 +36,7 @@ class Maze():
                 self._draw_cell(i, j)
         self._break_entrance_and_exit()
         self._break_walls_r(0, 0)
+        self._reset_cells_visited()
 
     def _draw_cell(self, i, j):
         x1 = self._x1 + i * self._cell_size_x
@@ -74,7 +75,6 @@ class Maze():
                 return
             else:
                 direction = random.choice(to_visit)
-                print(f"{i}, {j}, {direction}")
                 match direction:
                     case "left":
                         self._cells[i][j].has_left_wall = False
@@ -96,3 +96,8 @@ class Maze():
                         self._cells[i][j + 1].has_top_wall = False
                         self._draw_cell(i, j)
                         self._break_walls_r(i, j + 1)
+
+    def _reset_cells_visited(self):
+        for i in range(self._num_cols):
+            for j in range(self._num_rows):
+                self._cells[i][j].visited = False
